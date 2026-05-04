@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { action } from '@storybook/addon-actions';
@@ -74,6 +74,17 @@ const meta = {
       </Text>
     ),
     onClose: action('onClose'),
+  },
+  render: (args) => {
+    const [isHidden, setIsHidden] = useState(false);
+
+    const handleClose = (event: React.MouseEvent<HTMLButtonElement>) => {
+      args.onClose?.(event);
+      setIsHidden(true);
+      setTimeout(() => setIsHidden(false), 1000);
+    };
+
+    return <>{!isHidden && <Callout {...args} onClose={handleClose} />}</>;
   },
 } satisfies Meta<typeof Callout>;
 
