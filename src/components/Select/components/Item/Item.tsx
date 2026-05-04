@@ -6,6 +6,7 @@ import { useThemeClassName } from 'src/hooks/useThemeClassName';
 import { noop } from 'src/utils';
 
 import { useSelectContext } from '../../Select.context';
+import { getSelectItemTitle } from '../../Select.types';
 
 import Option from '../Option/Option';
 
@@ -20,7 +21,15 @@ const DISPLAY_NAME = 'Select.Item';
 type L = HTMLLIElement;
 
 export const Item = forwardRef<L, ItemProps>((props, ref) => {
-  const { item, children, index, className, theme, ...rest } = props;
+  const {
+    item,
+    children,
+    index,
+    className,
+    theme,
+    title: titleProp,
+    ...rest
+  } = props;
 
   const themeClassName = useThemeClassName<SelectItemThemeType>(theme);
 
@@ -47,10 +56,16 @@ export const Item = forwardRef<L, ItemProps>((props, ref) => {
   const isSelected = selected?.value === value;
   const isHovered = hoveredIndex === index;
 
+  // Default-rendered <li> shows the native tooltip for the (possibly truncated)
+  // option. When `children` is provided, the consumer is in charge of composing
+  // their own tooltip (they can still pass `title` to <Select.Item> directly).
+  const title = titleProp ?? (children ? undefined : getSelectItemTitle(item));
+
   return (
     <li
       {...rest}
       ref={ref}
+      title={title}
       className={cx(
         s.item,
         {
@@ -62,7 +77,7 @@ export const Item = forwardRef<L, ItemProps>((props, ref) => {
       )}
       onClick={handleClick}
     >
-      {children ? children : <Option title={item.title}>{option}</Option>}
+      {children ? children : <Option>{option}</Option>}
     </li>
   );
 });

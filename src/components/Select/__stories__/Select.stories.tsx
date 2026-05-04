@@ -16,6 +16,8 @@ import DeleteIcon from 'src/icons/delete.svg';
 
 import { i18n } from '@i18n';
 
+import { Badge, BadgeSafetyTheme } from 'src/components/Badge';
+
 import { Select } from '../Select';
 import { SelectItem } from '../Select.types';
 import { SelectProps } from '../Select.props';
@@ -46,7 +48,20 @@ const DefaultSelectItems = [
     option: getOptionLabel(3),
     icon: <DeleteIcon width={20} height={20} />,
   },
-  { value: 'Option 4', option: getOptionLabel(4) },
+  {
+    value: 'Option 4',
+    option: (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        {getOptionLabel(4)}{' '}
+        <Badge
+          theme={BadgeSafetyTheme}
+          title="Badge"
+          style={{ marginLeft: 8 }}
+        />
+      </div>
+    ),
+    title: getOptionLabel(4),
+  },
   { value: 'Option 5', option: getOptionLabel(5) },
   { value: 'Option 6', option: getOptionLabel(6) },
   {
@@ -185,7 +200,20 @@ const DefaultSelectItems = [
   { value: "Option 1", option: "${i18n.t('Option')} 1" },
   { value: "Option 2", option: "${i18n.t('Option')} 2" },
   { value: "Option 3", option: "${i18n.t('Option')} 3" },
-  { value: "Option 4", option: "${i18n.t('Option')} 4" },
+  {
+    value: 'Option 4',
+    option: (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        ${i18n.t('Option')} 4{' '}
+        <Badge
+          theme={BadgeSafetyTheme}
+          title="Badge"
+          style={{ marginLeft: 8 }}
+        />
+      </div>
+    ),
+    title: ${i18n.t('Option')} 4,
+  },
   { value: "Option 5", option: "${i18n.t('Option')} 5" },
   { value: "Option 6", option: "${i18n.t('Option')} 6" },
   {

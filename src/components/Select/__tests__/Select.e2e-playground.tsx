@@ -13,7 +13,24 @@ import { Select, SelectArrowTheme, SelectItemTheme, SelectRootTheme } from '..';
 import { SelectItem } from '../Select.types';
 
 const items: SelectItem[] = [
-  { value: 'option1', option: 'Option 1' },
+  {
+    value: 'option1',
+    option: (
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+        Option 1
+        <span
+          style={{
+            display: 'inline-block',
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            backgroundColor: '#ff3b30',
+          }}
+        />
+      </div>
+    ),
+    title: 'Option 1',
+  },
   { value: 'option2', option: 'Option 2' },
   { value: 'option3', option: 'Option 3' },
 ];
